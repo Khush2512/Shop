@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GFB Fish & Chips</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div id="authSection">
+        <h4>Customer Login</h4>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <button onclick="signup()">Sign Up</button>
+        <p id="authStatus"></p>
+      </div>
+
+      <div id="userSection" style="display:none;">
+        <h4>Welcome, <span id="userName"></span>!</h4>
+        <p>Loyalty Points: <span id="userPoints">0</span></p>
+        <button onclick="logout()">Logout</button>
+      </div>
+
+      <div class="search-box">
+        <input type="text" placeholder="Search menu...">
+      </div>
+      <ul class="category-list">
+        <li>Fish & Chips</li>
+        <li>Burgers</li>
+        <li>Kebabs</li>
+        <li>Sides</li>
+      </ul>
+    </div>
+
+    <!-- Menu -->
+    <div class="menu">
+      <div class="card">
+        <h3>Cod & Chips</h3>
+        <p>Classic battered cod with golden chips.</p>
+        <div class="price">£6.99</div>
+        <button onclick="addToCart('Cod & Chips', 6.99)">Add to Cart</button>
+      </div>
+      <!-- Add more items here -->
+    </div>
+
+    <!-- Cart -->
+    <div class="cart">
+      <h4>🛒 Your Cart</h4>
+      <div id="cartItems"></div>
+      <div class="cart-total" id="cartTotal">Total: £0.00</div>
+      <button id="checkoutBtn" style="display:none;" onclick="checkout()">Checkout</button>
+    </div>
+  </div>
+
+  <!-- Firebase + App Scripts -->
+  <script src="firebase-config.js"></script>
+  <script src="scripts.js"></script>
+</body>
+</html>
