@@ -5,59 +5,143 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GFB Fish & Chips</title>
   <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+  <header>
+    <h1>GFB Fish & Chips</h1>
+    <div id="authBadge"></div>
+  </header>
+
   <div class="container">
     <!-- Sidebar -->
-    <div class="sidebar">
-      <div id="authSection">
-        <h4>Customer Login</h4>
-        <input type="email" id="email" placeholder="Email">
-        <input type="password" id="password" placeholder="Password">
-        <button onclick="login()">Login</button>
-        <button onclick="signup()">Sign Up</button>
-        <p id="authStatus"></p>
+    <aside class="sidebar">
+      <div class="auth-card">
+        <div id="authSection">
+          <h3><i class="icon">👤</i> Customer Portal</h3>
+          <div class="input-group">
+            <input type="email" id="email" placeholder="Email" class="auth-input">
+            <input type="password" id="password" placeholder="Password" class="auth-input">
+          </div>
+          <div class="auth-actions">
+            <button id="loginBtn" class="btn auth-btn">Login</button>
+            <button id="signupBtn" class="btn auth-btn secondary">Sign Up</button>
+          </div>
+          <p id="authStatus" class="status-message"></p>
+        </div>
+
+        <div id="userSection" class="hidden">
+          <h3><i class="icon">👋</i> Welcome, <span id="userName"></span>!</h3>
+          <div class="loyalty-display">
+            <div class="points">
+              <i class="icon">⭐</i>
+              <span id="userPoints">0</span> points
+            </div>
+            <small>100 points = £5 discount</small>
+          </div>
+          <button id="logoutBtn" class="btn logout-btn">Logout</button>
+        </div>
       </div>
 
-      <div id="userSection" style="display:none;">
-        <h4>Welcome, <span id="userName"></span>!</h4>
-        <p>Loyalty Points: <span id="userPoints">0</span></p>
-        <button onclick="logout()">Logout</button>
-      </div>
+      <nav class="menu-categories">
+        <h3><i class="icon">🍽️</i> Menu</h3>
+        <ul id="categoryList">
+          <li class="active" data-category="fish-and-chips">Fish & Chips</li>
+          <li data-category="chicken">Chicken</li>
+          <li data-category="burgers">Burgers</li>
+          <li data-category="kebabs">Kebabs</li>
+          <li data-category="kids">Kids</li>
+          <li data-category="eaters">Eaters</li>
+          <li data-category="sides">Sides</li>
+          <li data-category="drinks">Drinks</li>
+        </ul>
+      </nav>
+    </aside>
 
-      <div class="search-box">
-        <input type="text" placeholder="Search menu...">
-      </div>
-      <ul class="category-list">
-        <li>Fish & Chips</li>
-        <li>Burgers</li>
-        <li>Kebabs</li>
-        <li>Sides</li>
-      </ul>
-    </div>
+    <!-- Main Menu -->
+    <main class="menu">
+      <section class="menu-section">
+        <h2 id="menuCategoryTitle">Fish & Chips</h2>
+        <div class="menu-grid" id="menuGrid">
+          <!-- Menu items will be dynamically inserted here -->
+        </div>
+      </section>
+    </main>
 
-    <!-- Menu -->
-    <div class="menu">
-      <div class="card">
-        <h3>Cod & Chips</h3>
-        <p>Classic battered cod with golden chips.</p>
-        <div class="price">£6.99</div>
-        <button onclick="addToCart('Cod & Chips', 6.99)">Add to Cart</button>
+    <!-- Cart Sidebar -->
+    <aside class="cart-sidebar">
+      <div class="cart-header">
+        <h3><i class="icon">🛒</i> Your Order</h3>
+        <span id="itemCount">0 items</span>
       </div>
-      <!-- Add more items here -->
-    </div>
-
-    <!-- Cart -->
-    <div class="cart">
-      <h4>🛒 Your Cart</h4>
-      <div id="cartItems"></div>
-      <div class="cart-total" id="cartTotal">Total: £0.00</div>
-      <button id="checkoutBtn" style="display:none;" onclick="checkout()">Checkout</button>
-    </div>
+      
+      <div id="cartItems" class="cart-items">
+        <p class="empty-cart">Please login to view your cart</p>
+      </div>
+      
+      <div class="cart-footer">
+        <div class="total">
+          <span>Total:</span>
+          <span id="cartTotal">£0.00</span>
+        </div>
+        <button id="checkoutBtn" class="btn checkout-btn hidden">
+          Proceed to Payment
+        </button>
+        <p id="loyaltyNote" class="loyalty-note hidden">
+          Earn <strong id="potentialPoints">0</strong> points with this order!
+        </p>
+      </div>
+    </aside>
   </div>
 
-  <!-- Firebase + App Scripts -->
-  <script src="firebase-config.js"></script>
-  <script src="scripts.js"></script>
+  <!-- Firebase SDK -->
+ <!-- In your index.html, update just the Firebase import section -->
+<script type="module">
+  import { 
+    auth,
+    db,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged,
+    collection,
+    doc,
+    setDoc,
+    getDoc,
+    addDoc,
+    deleteDoc,
+    query,
+    orderBy,
+    onSnapshot,
+    serverTimestamp,
+    updateDoc,
+    increment
+  } from './firebase-config.js';
+
+  import { initializeApp } from './script.js';
+    
+  document.addEventListener('DOMContentLoaded', () => {
+    initializeApp({
+      auth,
+      db,
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
+      signOut,
+      onAuthStateChanged,
+      collection,
+      doc,
+      setDoc,
+      getDoc,
+      addDoc,
+      deleteDoc,
+      query,
+      orderBy,
+      onSnapshot,
+      serverTimestamp,
+      updateDoc,
+      increment
+    });
+  });
+</script>
 </body>
 </html>
